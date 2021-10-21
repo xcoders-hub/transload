@@ -4,7 +4,7 @@ session_start();
 include "resumable-download.php";
 include 'dl.php';
 if($_GET['gd']){
-    $new_file_name= 'movie.mkv');
+    $new_file_name= 'movie.mkv';
     $finalfilename= $new_file_name;
     if(file_exists($finalfilename)){
      header("Location:  $finalfilename");
