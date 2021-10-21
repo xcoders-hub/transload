@@ -3,9 +3,9 @@ error_reporting(E_ALL);
 session_start();
 include "resumable-download.php";
 include 'dl.php';
-if($_GET['nm']){
-    $new_file_name= base64_decode($_GET['nm']);
-    $finalfilename= $id.'-'.$new_file_name;
+if($_GET['gd']){
+    $new_file_name= 'movie.mkv');
+    $finalfilename= $new_file_name;
     if(file_exists($finalfilename)){
      header("Location:  $finalfilename");
     }else{
