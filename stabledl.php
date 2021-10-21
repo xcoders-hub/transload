@@ -3,22 +3,7 @@ session_start();
 $file = $_SESSION['oscid'];
 $id = $_SESSION['did'];
 $streamurl= $_SESSION['oscgd'];
-include "../system/resumable-download.php";
-include "../system/aes.php";
-include "../system/function.php";
-if(isset($_COOKIE['crypt'])){ $_SESSION['email'] = AES("decrypt",$_COOKIE['crypt']); }
-$share = json_decode(file_get_contents('../base/data/main/share/'.$id.'.json'), true);
-$users = json_decode(file_get_contents("../base/data/user/".$share['file']['user_id'].".json"),true);
-$formatv = explode("/",$share['file']['mime']);
-$formatv = $formatv['0'];
-$_GET['s'] = $share['file']['title'];
-if(isset($_SESSION['email'])){
-$ses = json_decode(file_get_contents("../base/data/user/".$_SESSION['email'].".json"),true);
-$ses = $ses['role'];
-} else {
-$ses = null;
-}
-include "../system/view/header.php";
+include "resumable-download.php";
 if(isset($_POST['ddl'])){
     set_time_limit(0);
     $download = new ResumeDownload($file); //delay about in microsecs 
