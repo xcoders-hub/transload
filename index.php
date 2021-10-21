@@ -1,29 +1,8 @@
 <?php
 error_reporting(E_ALL);
 session_start();
-include "../system/aes.php";
-include "../system/function.php";
-include "../system/resumable-download.php";
-//include "../system/view/header.php";
-include '../system/dl.php';
-if(empty($_GET['nm'])){
-  header("Location: /") ;
-}
-if (isset($_COOKIE['crypt'])) {
-    $_SESSION['email'] = AES("decrypt", $_COOKIE['crypt']);
-}
-$id= skycodes_hash_matxrix($_GET['id'], 'd');
-$share = json_decode(file_get_contents("../base/data/main/share/$id.json"), true);
-$users = json_decode(file_get_contents("../base/data/user/".$share['file']['user_id'].".json"), true);
-$formatv = explode("/", $share['file']['mime']);
-$formatv = $formatv['0'];
-$_GET['s'] = $share['file']['title'];
-if (isset($_SESSION['email'])) {
-    $ses = json_decode(file_get_contents("../base/data/user/".$_SESSION['email'].".json"), true);
-    $ses = $ses['role'];
-} else {
-    $ses = null;
-}
+include "resumable-download.php";
+include 'dl.php';
 if($_GET['nm']){
     $new_file_name= base64_decode($_GET['nm']);
     $finalfilename= $id.'-'.$new_file_name;
